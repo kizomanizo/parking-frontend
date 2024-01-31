@@ -13,5 +13,8 @@ export default defineConfig({
   },
   server: {
     port: 5174
+  },
+  build: {
+    outDir: '/var/www/parking'
   }
 })
