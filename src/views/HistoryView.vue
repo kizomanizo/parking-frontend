@@ -15,7 +15,6 @@ import { useHistory } from '@/stores/store'
 
 const history = useHistory.history;
 const uniqueHistory = getUniqueOnly(history);
-const limitedHistory = uniqueHistory.slice(-5);
 const reversedHistory = uniqueHistory.reverse().slice(0, 5);
 
 function getUniqueOnly(arr: any) {

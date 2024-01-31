@@ -57,6 +57,5 @@ export const useHistory = {
   setHistory(newHistory: any) {
     this.history.push(newHistory)
     localStorage.setItem('history', JSON.stringify(this.history))
-    console.log(this.history)
   }
 }

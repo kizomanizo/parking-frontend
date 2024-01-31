@@ -25,7 +25,6 @@ const handleCheckParking = async () => {
   useLoading.toggleVisibility(true)
   try {
     if (tzRegex.test(regNumber.value)) {
-      console.log('entry matches', regNumber.value)
       const termisUrl = import.meta.env.VITE_TERMIS_ENDPOINT
       const termisResponse = await axios.get(termisUrl + regNumber.value, {
         headers: {
@@ -35,7 +34,6 @@ const handleCheckParking = async () => {
       // Store the token in Vue store
       const response = termisResponse.data
       if (!response.status) {
-        console.log('No bills found!', regNumber.value)
         showAlert('alert-warning', 'WARNING', `${regNumber.value} has no bills!!`)
         return
       }
@@ -45,7 +43,6 @@ const handleCheckParking = async () => {
       usePath.changeName('results')
       await router.push('/results')
     } else {
-      console.log('entry mismatch', regNumber.value)
       showAlert('alert-danger', 'Error', `${regNumber.value} is an invalid plate number`)
     }
   } catch (error: any) {
