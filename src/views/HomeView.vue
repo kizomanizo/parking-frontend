@@ -27,9 +27,9 @@ const handleCheckParking = async () => {
     if (tzRegex.test(regNumber.value)) {
       const termisUrl = import.meta.env.VITE_TERMIS_ENDPOINT
       const termisResponse = await axios.get(termisUrl + regNumber.value, {
-        headers: {
-          'x-transfer-key': 'e9f3e572-db87-4eff-9ed6-66922f1f7f24'
-        }
+        // headers: {
+        //   'x-transfer-key': 'e9f3e572-db87-4eff-9ed6-66922f1f7f24'
+        // }
       })
       // Store the token in Vue store
       const response = termisResponse.data
