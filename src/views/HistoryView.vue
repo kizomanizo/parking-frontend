@@ -5,13 +5,15 @@
   <section class="text-history">
     <div class="history" v-for="(hist, index) of reversedHistory" :key="index">
       <div class="history-car">{{ hist }}</div>
-      <div class="history-amount">unknown</div>
+      <div class="history-amount"><a @click="handleCheckParking(hist)">CheckAgain</a></div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
 import { useHistory } from '@/stores/store'
+import { handleCheckParking } from '@/scripts/checkParking'
+
 
 const history = useHistory.history;
 const uniqueHistory = getUniqueOnly(history);
@@ -37,10 +39,10 @@ function getUniqueOnly(arr: any) {
 
 .history {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  border-bottom: 5px dashed var(--border-hover);
+  grid-template-columns: 1fr 1fr;
+  border-bottom: 1px dashed var(--border-hover);
   padding: 10px 0;
   margin-top: 5px;
-  min-width: 70%;
+  min-width: 60%;
 }
 </style>
