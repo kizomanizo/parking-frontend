@@ -1,25 +1,29 @@
 <script setup lang="ts">
+import { computed } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
-import { useAlert, useLoading } from './stores/store'
+import { useAlert, useLoading, usePath } from './stores/store'
 import FooterComponent from './components/FooterComponent.vue'
 import AlertBox from './components/AlertBox.vue'
 import LoadingBox from './components/LoadingBox.vue'
+
+const selectedPath = computed(() => usePath.name);
+
+usePath.changeName('home');
 </script>
 
 <template>
   <div class="page-wrapper">
-    <AlertBox
-      :title="useAlert.title"
-      :message="useAlert.message"
-      :type="useAlert.type"
-      v-if="useAlert.visible"
-    />
+    <AlertBox :title="useAlert.title" :message="useAlert.message" :type="useAlert.type" v-if="useAlert.visible" />
     <LoadingBox v-if="useLoading.visible" />
     <header class="page-header">
       <h1 class="header-heading">Check Parking Fees</h1>
       <nav class="header-nav">
-        <RouterLink to="/">Check Fees</RouterLink>
-        <RouterLink to="/history">History</RouterLink>
+
+        <RouterLink to="/" class="top-link-left" :class="{ 'selected-left': selectedPath === 'home' }"
+          @click="usePath.changeName('home')">Check
+          Fees</RouterLink>
+        <RouterLink to="/history" class="top-link-right" :class="{ 'selected-right': selectedPath === 'history' }">History
+        </RouterLink>
       </nav>
     </header>
     <main>
@@ -44,12 +48,31 @@ header h1 {
 
 nav {
   flex: 1;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
 }
+
+/* .top-link-left {
+  background-color: var(--color-jet-norm);
+  color: var(--color-white-norm);
+  padding: 4px 7px;
+  border-radius: 10px 0 0 10px;
+}
+
+.top-link-right {
+  background-color: var(--color-jet-norm);
+  color: var(--color-white-norm);
+  padding: 4px 7px;
+  border-radius: 0 10px 10px 0;
+  min-width: 150px;
+} */
 
 header a:not(:last-of-type)::after {
   margin: 0 10px 0 10px;
   content: '|';
   color: var(--text-norm-norm);
+  border-right: 1px solid white;
 }
 
 main {

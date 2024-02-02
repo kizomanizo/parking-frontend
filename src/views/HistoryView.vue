@@ -4,20 +4,22 @@
   </section>
   <section class="text-history">
     <div class="history" v-for="(hist, index) of reversedHistory" :key="index">
-      <div class="history-car">{{ hist }}</div>
-      <div class="history-amount"><a @click="handleCheckParking(hist)">CheckAgain</a></div>
+      <div class="history-number">{{ hist }}</div>
+      <div class="history-action"><a class="action-details" @click="handleCheckParking(hist)">CheckAgain</a></div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import { useHistory } from '@/stores/store'
+import { useHistory, usePath } from '@/stores/store'
 import { handleCheckParking } from '@/scripts/checkParking'
 
 
 const history = useHistory.history;
 const uniqueHistory = getUniqueOnly(history);
 const reversedHistory = uniqueHistory.reverse().slice(0, 5);
+
+usePath.changeName('history');
 
 function getUniqueOnly(arr: any) {
   let outputArray = arr.filter(function (v: any, i: any, self: any) {
@@ -44,5 +46,18 @@ function getUniqueOnly(arr: any) {
   padding: 10px 0;
   margin-top: 5px;
   min-width: 60%;
+}
+
+.action-details {
+  background-color: var(--color-jet-mute);
+  color: var(--color-white-mute);
+  font-size: smaller;
+  border-radius: 10px;
+  padding: 2px 6px;
+}
+
+.action-details:hover {
+  background-color: var(--color-jet-norm);
+  color: var(--color-white-norm);
 }
 </style>

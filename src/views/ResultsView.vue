@@ -14,16 +14,17 @@
     <span class="bill-number">Bill: {{ index + 1 }}</span>
     <div class="bill-wrapper bill-entries">
       <div class="bill-item">
-        <span class="bill-label">Bill Control Number: </span>{{ response.billControlNumber }}
+        <span class="bill-label">Bill Control Number: </span>
+        <span class="control-number">{{ response.billControlNumber }}</span>
       </div>
       <div class="bill-item">
-        <span class="bill-label">Bill Total: </span>{{ response.billedAmount }}Shs
+        <span class="bill-label">Bill Total Amount: </span>{{ formatNumberWithCommas(response.billedAmount) }} Shs
       </div>
       <div class="bill-item">
-        <span class="bill-label">Bill Hours: </span>{{ sumOfBillAmounts[index] }}hrs
+        <span class="bill-label">Bill Total Hours: </span>{{ sumOfBillAmounts[index] }}hrs
       </div>
       <div class="bill-tickets">
-        <div class="ticket">
+        <div class="ticket ticket-heading">
           <div class="ticket-item ticket-header">Date</div>
           <div class="ticket-item ticket-header">Amount</div>
           <div class="ticket-item ticket-header">Hours</div>
@@ -31,9 +32,8 @@
         </div>
         <div class="ticket" v-for="(ticketItem, index) in response.ticketItems" :key="index">
           <div class="ticket-item">{{ ticketItem.dateScanned }}</div>
-          <div class="ticket-item">{{ ticketItem.billItemAmount }}</div>
+          <div class="ticket-item">{{ formatNumberWithCommas(ticketItem.billItemAmount.split('.', 1)) }} Shs</div>
           <div class="ticket-item">{{ ticketItem.billItemDescription }}</div>
-          <!-- <div class="ticket-item item-details">{{ ticketItem.otherItemDescription }}</div> -->
           <div class="ticket-item item-details">
             <div v-for="(item, itemIndex) in ticketItem.otherItemDescription.split(',')" :key="itemIndex"
               class="detail-line">
@@ -64,7 +64,13 @@ const sumOfBillAmounts: number[] = responses.map((bill: any) => {
 
   return sum
 })
+
+function formatNumberWithCommas(number: number) {
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
 </script>
+
 
 <style>
 section {
@@ -111,7 +117,7 @@ section {
 .ticket {
   display: grid;
   flex-direction: row;
-  grid-template-columns: 1.2fr 1fr 1fr 4fr;
+  grid-template-columns: 1.2fr 1.1fr 1fr 4fr;
 }
 
 .bill-item,
@@ -140,6 +146,13 @@ section {
   border-bottom: 1px dashed var(--border-hover);
 }
 
+.control-number {
+  background-color: var(--color-white-mute);
+  padding: 2px 6px;
+  border-radius: 15px;
+  font-size: smaller;
+}
+
 @media (max-width: 1024px) {
   section {
     width: 100%;
@@ -157,7 +170,6 @@ section {
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
-    margin-left: 7px;
   }
 
   .bill-header {
@@ -171,7 +183,7 @@ section {
   }
 
   .ticket {
-    grid-template-columns: 1.5fr 1fr 1.1fr 4fr;
+    grid-template-columns: 1.4fr 1.3fr 1.1fr 3.8fr;
   }
 
   .bill-item,
@@ -188,6 +200,11 @@ section {
     display: inline;
     font-weight: bold;
     border-bottom: 1px solid var(--border-hover);
+  }
+
+  .ticket-heading {
+    background-color: var(--color-jet-norm);
+    color: var(--color-white-norm);
   }
 
 }
