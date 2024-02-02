@@ -33,7 +33,13 @@
           <div class="ticket-item">{{ ticketItem.dateScanned }}</div>
           <div class="ticket-item">{{ ticketItem.billItemAmount }}</div>
           <div class="ticket-item">{{ ticketItem.billItemDescription }}</div>
-          <div class="ticket-item item-details">{{ ticketItem.otherItemDescription }}</div>
+          <!-- <div class="ticket-item item-details">{{ ticketItem.otherItemDescription }}</div> -->
+          <div class="ticket-item item-details">
+            <div v-for="(item, itemIndex) in ticketItem.otherItemDescription.split(',')" :key="itemIndex"
+              class="detail-line">
+              {{ item.trim() }}
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -93,7 +99,8 @@ section {
 }
 
 .bill-entries {
-  border-top: 1px dashed var(--border-hover);
+  /* border-top: 1px dashed var(--border-hover); */
+  box-shadow: 5px 5px 4px var(--border-hover);
 }
 
 .bill-tickets {
@@ -104,7 +111,7 @@ section {
 .ticket {
   display: grid;
   flex-direction: row;
-  grid-template-columns: 1fr 1fr 1fr 3fr;
+  grid-template-columns: 1.2fr 1fr 1fr 4fr;
 }
 
 .bill-item,
@@ -124,6 +131,15 @@ section {
   display: none;
 }
 
+.item-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-line {
+  border-bottom: 1px dashed var(--border-hover);
+}
+
 @media (max-width: 1024px) {
   section {
     width: 100%;
@@ -138,9 +154,10 @@ section {
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    justify-content: space-around;
+    align-items: center;
+    justify-content: center;
     font-size: 0.8rem;
+    margin-left: 7px;
   }
 
   .bill-header {
@@ -154,7 +171,7 @@ section {
   }
 
   .ticket {
-    grid-template-columns: 2fr 0.8fr 1.2fr 3fr;
+    grid-template-columns: 1.5fr 1fr 1.1fr 4fr;
   }
 
   .bill-item,
@@ -163,7 +180,7 @@ section {
   }
 
   .bill-entries {
-    border-bottom: 5px dashed var(--border-hover);
+    border: 1px solid var(--border-hover);
     border-top: none;
   }
 
@@ -172,5 +189,6 @@ section {
     font-weight: bold;
     border-bottom: 1px solid var(--border-hover);
   }
+
 }
 </style>
