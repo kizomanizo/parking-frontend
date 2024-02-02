@@ -170,7 +170,7 @@ section {
     align-items: center;
     justify-content: center;
     font-size: 0.8rem;
-    padding-left: 5px;
+    margin-left: 5px;
   }
 
   .bill-header {
