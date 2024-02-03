@@ -22,6 +22,8 @@ const regNumber = ref('')
   display: flex;
   flex-direction: column;
   max-width: 450px;
+  align-items: center;
+  justify-content: center;
 }
 
 .search-form input {
@@ -48,10 +50,19 @@ const regNumber = ref('')
   border: none;
   border-radius: 10px;
   font-size: 1.1rem;
+  max-width: 200px;
+  color: var(--text-norm-norm);
+  cursor: pointer;
 }
 
 .form-button:hover {
   background-color: var(--button-hover);
+  color: var(--color-white-norm);
+}
+
+.form-button:active {
+  background-color: var(--button-hover);
+  color: var(--color-white-norm);
 }
 
 @media (max-width: 1024px) {

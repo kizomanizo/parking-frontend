@@ -1,4 +1,5 @@
 import { reactive, ref } from 'vue'
+import router from '@/router'
 
 export const useAlert = reactive({
   visible: false,
@@ -28,11 +29,10 @@ export const useLoading = reactive({
 })
 
 export const usePath = reactive({
-  name: ref(localStorage.getItem('path') || 'home'),
+  name: ref(''),
 
   changeName(newName: any) {
     this.name = newName
-    localStorage.setItem('path', newName)
   }
 })
 
@@ -51,11 +51,32 @@ export const useResponse = reactive({
   }
 })
 
-export const useHistory = {
+export const useHistory = reactive({
   history: JSON.parse(localStorage.getItem('history') || '[]'),
+  isFull: ref(false),
 
   setHistory(newHistory: any) {
     this.history.push(newHistory)
     localStorage.setItem('history', JSON.stringify(this.history))
+  },
+
+  async clearHistory() {
+    localStorage.setItem('history', '[]')
+    this.history.length = 0
+    usePrompt.changeVisibility(false)
+    await router.push('/')
+    usePath.changeName('home')
+  },
+
+  changeSize(newSize: any) {
+    this.isFull = newSize
+  }
+})
+
+export const usePrompt = {
+  isVisible: ref(false),
+
+  changeVisibility(visibility: any) {
+    this.isVisible.value = visibility
   }
 }

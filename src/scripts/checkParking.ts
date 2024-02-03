@@ -14,7 +14,6 @@ export const handleCheckParking = async (regNumber: any) => {
       const termisResponse = await axios.get(termisUrl + regNumber, {})
       // Store the token in Vue store
       const response = termisResponse.data
-      console.log('RESPONSE', response.status)
       if (!response.status) {
         showAlert('alert-warning', 'WARNING', `${regNumber} has no bills!!`)
         return

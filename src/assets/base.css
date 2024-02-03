@@ -18,6 +18,10 @@
   --color-jet-norm: #353535;
   --color-jet-cool: #292929;
   --color-jet-mute: #141414;
+
+  --color-green-light: rgb(171, 247, 171);
+  --color-red-light: rgb(249, 166, 166);
+  --color-blue-light: rgb(164, 164, 254);
 }
 
 /* Light Theme */
@@ -28,10 +32,11 @@
   --border-norm: var(--color-grey-mute);
   --border-hover: var(--color-grey-norm);
 
-  --button-norm: var(--color-grey-mute);
-  --button-hover: var(--color-grey-cool);
+  --button-norm: var(--color-silver-norm);
+  --button-hover: var(--color-jet-norm);
 
   --text-norm-norm: var(--color-jet-norm);
+  --text-light-norm: var(--color-white-norm);
   --text-head-norm: var(--color-jet-cool);
   --text-haed-mute: var(--color-jet-mute);
   --text-link-norm: var(--color-silver-cool);
@@ -52,6 +57,9 @@
     --text-head-mute: var(--color-grey-mute);
     --text-link-norm: var(--color-grey-mute);
     --text-link-hover: var(--color-white-norm);
+    --text-red-norm: var(--color-red-light);
+    --text-green-norm: var(--color-green-light);
+    --text-blue-norm: var(--color-blue-light);
   }
 }
 

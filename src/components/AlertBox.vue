@@ -16,7 +16,7 @@ const props = defineProps<{
 }>()
 const _dummyProps = props // Dummy reference to satisfy ESLint
 if (_dummyProps) {
-  console.log('')
+  // console.log('')
 }
 </script>
 

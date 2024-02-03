@@ -18,7 +18,8 @@
         <span class="control-number">{{ response.billControlNumber }}</span>
       </div>
       <div class="bill-item">
-        <span class="bill-label">Bill Total Amount: </span>{{ formatNumberWithCommas(response.billedAmount) }} Shs
+        <span class="bill-label">Bill Total Amount: </span
+        >{{ formatNumberWithCommas(response.billedAmount) }} Shs
       </div>
       <div class="bill-item">
         <span class="bill-label">Bill Total Hours: </span>{{ sumOfBillAmounts[index] }}hrs
@@ -32,11 +33,16 @@
         </div>
         <div class="ticket" v-for="(ticketItem, index) in response.ticketItems" :key="index">
           <div class="ticket-item">{{ ticketItem.dateScanned }}</div>
-          <div class="ticket-item">{{ formatNumberWithCommas(ticketItem.billItemAmount.split('.', 1)) }} Shs</div>
+          <div class="ticket-item">
+            {{ formatNumberWithCommas(ticketItem.billItemAmount.split('.', 1)) }} Shs
+          </div>
           <div class="ticket-item">{{ ticketItem.billItemDescription }}</div>
           <div class="ticket-item item-details">
-            <div v-for="(item, itemIndex) in ticketItem.otherItemDescription.split(',')" :key="itemIndex"
-              class="detail-line">
+            <div
+              v-for="(item, itemIndex) in ticketItem.otherItemDescription.split(',')"
+              :key="itemIndex"
+              class="detail-line"
+            >
               {{ item.trim() }}
             </div>
           </div>
@@ -66,11 +72,9 @@ const sumOfBillAmounts: number[] = responses.map((bill: any) => {
 })
 
 function formatNumberWithCommas(number: number) {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
-
 </script>
-
 
 <style>
 section {
@@ -207,6 +211,5 @@ section {
     background-color: var(--color-jet-norm);
     color: var(--color-white-norm);
   }
-
 }
 </style>

@@ -2,30 +2,52 @@
   <section>
     <h3 class="prompt-text">Previous Transactions</h3>
   </section>
-  <section class="text-history">
+  <section class="text-history" v-if="!isHistoryFull">
     <div class="history" v-for="(hist, index) of reversedHistory" :key="index">
       <div class="history-number">{{ hist }}</div>
-      <div class="history-action"><a class="action-details" @click="handleCheckParking(hist)">CheckAgain</a></div>
+      <div class="history-action">
+        <a class="action-details" @click="handleCheckParking(hist)">CheckAgain</a>
+      </div>
     </div>
+  </section>
+  <section class="text-history" v-else>
+    <div class="history" v-for="(hist, index) of reversedFullHistory" :key="index">
+      <div class="history-number">{{ hist }}</div>
+      <div class="history-action">
+        <a class="action-details" @click="handleCheckParking(hist)">CheckAgain</a>
+      </div>
+    </div>
+  </section>
+  <section class="more-actions" v-if="useHistory.history.length > 0">
+    <a class="clear-history" @click="usePrompt.changeVisibility(true)">Clear History</a>
+    <a class="show-more" v-if="history.length > 5 && useHistory.isFull == false" @click="useHistory.changeSize(true)">Show
+      More...</a>
+    <a class="show-more" v-else-if="useHistory.isFull == true" @click="useHistory.changeSize(false)">Show Less</a>
+  </section>
+  <section class="more-actions" v-else>
+    <p>No past search history</p>
   </section>
 </template>
 
 <script setup lang="ts">
-import { useHistory, usePath } from '@/stores/store'
+import { computed } from 'vue';
+import { useHistory, usePath, usePrompt } from '@/stores/store'
 import { handleCheckParking } from '@/scripts/checkParking'
 
+const history = useHistory.history
+const uniqueHistory = history.length > 0 ? getUniqueOnly(history) : [];
+const reversedHistory = uniqueHistory.reverse().slice(0, 5)
+const reversedFullHistory = uniqueHistory.reverse()
 
-const history = useHistory.history;
-const uniqueHistory = getUniqueOnly(history);
-const reversedHistory = uniqueHistory.reverse().slice(0, 5);
+const isHistoryFull = computed(() => useHistory.isFull);
 
-usePath.changeName('history');
+usePath.changeName('history')
 
 function getUniqueOnly(arr: any) {
   let outputArray = arr.filter(function (v: any, i: any, self: any) {
-    return i == self.indexOf(v);
-  });
-  return outputArray;
+    return i == self.indexOf(v)
+  })
+  return outputArray
 }
 </script>
 
@@ -37,6 +59,7 @@ function getUniqueOnly(arr: any) {
 .text-history {
   text-align: center;
   min-width: 40vw;
+  overflow-y: scroll;
 }
 
 .history {
@@ -59,5 +82,18 @@ function getUniqueOnly(arr: any) {
 .action-details:hover {
   background-color: var(--color-jet-norm);
   color: var(--color-white-norm);
+}
+
+.more-actions {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 30px;
+  font-size: small;
+}
+
+.clear-history:hover {
+  color: red;
 }
 </style>
