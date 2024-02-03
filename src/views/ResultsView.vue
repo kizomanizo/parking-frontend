@@ -18,8 +18,7 @@
         <span class="control-number">{{ response.billControlNumber }}</span>
       </div>
       <div class="bill-item">
-        <span class="bill-label">Bill Total Amount: </span
-        >{{ formatNumberWithCommas(response.billedAmount) }} Shs
+        <span class="bill-label">Bill Total Amount: </span>{{ formatNumberWithCommas(response.billedAmount) }} Shs
       </div>
       <div class="bill-item">
         <span class="bill-label">Bill Total Hours: </span>{{ sumOfBillAmounts[index] }}hrs
@@ -38,11 +37,8 @@
           </div>
           <div class="ticket-item">{{ ticketItem.billItemDescription }}</div>
           <div class="ticket-item item-details">
-            <div
-              v-for="(item, itemIndex) in ticketItem.otherItemDescription.split(',')"
-              :key="itemIndex"
-              class="detail-line"
-            >
+            <div v-for="(item, itemIndex) in ticketItem.otherItemDescription.split(',')" :key="itemIndex"
+              class="detail-line">
               {{ item.trim() }}
             </div>
           </div>
@@ -210,6 +206,10 @@ section {
   .ticket-heading {
     background-color: var(--color-jet-norm);
     color: var(--color-white-norm);
+  }
+
+  .bill-number {
+    display: none;
   }
 }
 </style>
