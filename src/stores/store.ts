@@ -1,6 +1,8 @@
 import { reactive, ref } from 'vue'
 import router from '@/router'
 
+import showAlert from '@/scripts/showAlert'
+
 export const useAlert = reactive({
   visible: false,
   title: '',
@@ -64,6 +66,7 @@ export const useHistory = reactive({
     localStorage.setItem('history', '[]')
     this.history.length = 0
     usePrompt.changeVisibility(false)
+    showAlert('alert-success', 'Success', 'Search history has been cleared!')
     await router.push('/')
     usePath.changeName('home')
   },

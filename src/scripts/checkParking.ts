@@ -24,7 +24,7 @@ export const handleCheckParking = async (regNumber: any) => {
       usePath.changeName('results')
       await router.push('/results')
     } else {
-      showAlert('alert-danger', 'Error', `${regNumber} is an invalid plate number`)
+      showAlert('alert-danger', 'Error', `${regNumber || 'EMPTY'} is an invalid plate number`)
     }
   } catch (error: any) {
     console.error(error)

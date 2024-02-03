@@ -1,8 +1,10 @@
 <template>
-  <span id="alert-box" class="alert-box" :class="[type]" @click="useAlert.toggleVisibility(false)">
-    <h1>{{ title }}</h1>
-    <p>{{ message }}</p>
-  </span>
+  <div id="alert-box" class="alert-box">
+    <span class="alert-content" :class="[type]" @click="useAlert.toggleVisibility(false)">
+      <h1>{{ title }}</h1>
+      <p>{{ message }}</p>
+    </span>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -36,24 +38,38 @@ if (_dummyProps) {
   justify-content: center;
 }
 
-.alert-box h1 {
-  font-size: 1.7rem;
+.alert-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 350px;
+  height: 90px;
+  border-radius: 25px 8px 25px 8px;
+  transform: rotate(-10deg);
 }
 
-.alert-box p {
-  font-size: 1.3rem;
+.alert-content h1 {
+  font-size: 1.2rem;
+}
+
+.alert-content p {
+  font-size: 1rem;
 }
 
 .alert-danger {
-  color: red;
+  background-color: maroon;
+  color: white;
 }
 
 .alert-success {
-  color: green;
+  background-color: green;
+  color: white;
 }
 
 .alert-info {
-  color: blue;
+  background-color: blue;
+  color: white
 }
 
 .alert-warning {
