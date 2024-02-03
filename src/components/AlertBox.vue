@@ -58,21 +58,22 @@ if (_dummyProps) {
 }
 
 .alert-danger {
-  background-color: maroon;
+  background-color: rgb(156, 21, 21);
   color: white;
 }
 
 .alert-success {
-  background-color: green;
+  background-color: rgb(8, 73, 8);
   color: white;
 }
 
 .alert-info {
-  background-color: blue;
+  background-color: rgb(4, 4, 147);
   color: white
 }
 
 .alert-warning {
-  color: orange;
+  background-color: rgb(192, 129, 14);
+  color: var(--color-jet-mute);
 }
 </style>
