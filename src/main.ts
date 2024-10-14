@@ -23,7 +23,7 @@ export const i18n = createI18n({
 })
 
 export const changeLocale = (lang: any) => {
-  i18n.global.locale = lang
+  i18n.global.locale.value = lang
   localStorage.setItem('locale', lang)
 }
 
