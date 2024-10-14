@@ -18,7 +18,8 @@
         <span class="control-number">{{ response.billControlNumber }}</span>
       </div>
       <div class="bill-item">
-        <span class="bill-label">Bill Total Amount: </span>{{ formatNumberWithCommas(response.billedAmount) }} Shs
+        <!-- <span class="bill-label">Bill Total Amount: </span>{{ formatNumberWithCommas(response.billedAmount) }} Shs -->
+        <span class="bill-label">Bill Total Amount: </span>{{ formatNumberWithCommas(response.outStandingAmount) }} Shs
       </div>
       <div class="bill-item">
         <span class="bill-label">Bill Total Hours: </span>{{ sumOfBillAmounts[index] }}hrs
@@ -64,7 +65,6 @@ const sumOfBillAmounts: number[] = responses.map((bill: any) => {
     return acc + hours
   }, 0)
 
-  console.log("SUM LOG", sum);
   return sum
 })
 
