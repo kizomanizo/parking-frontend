@@ -10,7 +10,6 @@ import en_US from './locales/en_US.json'
 import sw_TZ from './locales/sw_TZ.json'
 import fr_FR from './locales/fr_FR.json'
 
-const app = createApp(App)
 const locale = localStorage.getItem('locale') || 'en_US'
 
 export const i18n = createI18n({
@@ -26,6 +25,8 @@ export const changeLocale = (lang: any) => {
   i18n.global.locale.value = lang
   localStorage.setItem('locale', lang)
 }
+
+const app = createApp(App)
 
 app.use(router)
 

@@ -4,9 +4,9 @@
       {{ t('footer.poweredBy') }} <a href="" class="footer-link">TERMIS</a>
       <br>
       {{ t('footer.toggleLanguage') }}
-      <a class="footer-link" @click.prevent="useLocale.changeLanguage('en')">English🇬🇧 </a> -
-      <a class="footer-link" @click.prevent="useLocale.changeLanguage('sw')">Kiswahili🇹🇿</a> -
-      <a class="footer-link" @click.prevent="useLocale.changeLanguage('fr')">Francais🇫🇷</a>
+      <a class="footer-link" @click.prevent="useLocale.changeLanguage('en_US')">English🇬🇧 </a> -
+      <a class="footer-link" @click.prevent="useLocale.changeLanguage('sw_TZ')">Kiswahili🇹🇿</a> -
+      <a class="footer-link" @click.prevent="useLocale.changeLanguage('fr_FR')">Francais🇫🇷</a>
     </p>
   </footer>
 </template>
