@@ -33,11 +33,11 @@
         </div>
         <div class="ticket" v-for="(ticketItem, index) in response.ticketItems" :key="index">
           <div class="ticket-item">{{ ticketItem.dateScanned }}</div>
-          <div class="ticket-item" v-if="ticketItem.billItemAmount <= 0">
+          <div class="ticket-item" v-if="Number(ticketItem.billItemAmount) <= 0">
             PAID
           </div>
           <div class="ticket-item" v-else>
-            {{ formatNumberWithCommas(ticketItem.billItemAmount.split('.', 1)) }} Shs
+            {{ formatNumberWithCommas(Number(ticketItem.billItemAmount).toFixed(0)) }} Shs
           </div>
           <div class="ticket-item">{{ ticketItem.billItemDescription }}</div>
           <div class="ticket-item item-details">
@@ -47,6 +47,7 @@
             </div>
           </div>
         </div>
+
       </div>
     </div>
   </section>
