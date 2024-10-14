@@ -85,7 +85,7 @@ export const usePrompt = {
 }
 
 export const useLocale = reactive({
-  language: ref(localStorage.getItem('locale') || 'en'),
+  language: ref(localStorage.getItem('locale') || 'en_US'),
 
   changeLanguage(selectedLanguage: any) {
     this.language = selectedLanguage

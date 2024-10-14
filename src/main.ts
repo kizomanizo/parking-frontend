@@ -6,16 +6,16 @@ import App from './App.vue'
 import router from './router'
 
 import { createI18n } from 'vue-i18n'
-import en from './locales/en.json'
-import sw from './locales/sw.json'
-import fr from './locales/fr.json'
+import en_US from './locales/en_US.json'
+import sw_TZ from './locales/sw_TZ.json'
+import fr_FR from './locales/fr_FR.json'
 
 const app = createApp(App)
-const locale = localStorage.getItem('locale') || 'en-US'
+const locale = localStorage.getItem('locale') || 'en_US'
 
 export const i18n = createI18n({
   locale: locale,
-  messages: { 'en-US': en, 'sw-TZ': sw, 'fr-FR': fr },
+  messages: { en_US, sw_TZ, fr_FR },
   legacy: false,
   fallbackWarn: false,
   missingWarn: false,
