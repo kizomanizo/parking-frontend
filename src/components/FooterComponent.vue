@@ -1,10 +1,12 @@
 <template>
   <footer class="page-footer">
     <p class="footer-text">
-      {{ t('footer.poweredBy') }} <a href="" class="footer-link">TERMIS | </a> {{ t('footer.toggleLanguage') }}
-      <a @click.prevent="useLocale.changeLanguage('en')">English🇬🇧🇬 </a> |
-      <a @click.prevent="useLocale.changeLanguage('sw')">Kiswahili🇹🇿🇹</a> |
-      <a @click.prevent="useLocale.changeLanguage('fr')">Francais🇫🇷🇫</a>
+      {{ t('footer.poweredBy') }} <a href="" class="footer-link">TERMIS</a>
+      <br>
+      {{ t('footer.toggleLanguage') }}
+      <a class="footer-link" @click.prevent="useLocale.changeLanguage('en')">English🇬🇧 </a> -
+      <a class="footer-link" @click.prevent="useLocale.changeLanguage('sw')">Kiswahili🇹🇿</a> -
+      <a class="footer-link" @click.prevent="useLocale.changeLanguage('fr')">Francais🇫🇷</a>
     </p>
   </footer>
 </template>

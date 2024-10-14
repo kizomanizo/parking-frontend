@@ -1,8 +1,8 @@
 <template>
   <section class="search-form">
-    <input type="text" name="reg_number" id="reg_number" placeholder="t('home.example')" class="form-text"
+    <input type="text" name="reg_number" id="reg_number" placeholder="{{ t('home.example') }}" class="form-text"
       v-model="regNumber" />
-    <input type="button" class="form-button" value="t('home.actionButton')" @click="handleCheckParking(regNumber)"
+    <input type="button" class="form-button" value="{{ t('home.actionButton') }}" @click="handleCheckParking(regNumber)"
       @keydown.enter="handleCheckParking" />
   </section>
   <section>
