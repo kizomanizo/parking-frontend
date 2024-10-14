@@ -37,7 +37,7 @@
             PAID
           </div>
           <div class="ticket-item" v-else>
-            {{ formatNumberWithCommas(ticketItem.billItemAmount.toFixed(0)) }} Shs
+            {{ formatNumberWithCommas(ticketItem.billItemAmount.split('.', 1)) }} Shs
           </div>
           <div class="ticket-item">{{ ticketItem.billItemDescription }}</div>
           <div class="ticket-item item-details">
@@ -47,7 +47,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
