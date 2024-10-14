@@ -2,7 +2,8 @@
   <section class="search-form">
     <input type="text" name="reg_number" id="reg_number" placeholder="e.g. T011AAX" class="form-text"
       v-model="regNumber" />
-    <input type="button" class="form-button" value="Check Fees" @click="handleCheckParking(regNumber)" />
+    <input type="button" class="form-button" value="Check Fees" @click="handleCheckParking(regNumber)"
+      @keydown.enter="handleCheckParking" />
   </section>
   <section>
     <p class="prompt-text">Enter your plate number and press Check Fees</p>
