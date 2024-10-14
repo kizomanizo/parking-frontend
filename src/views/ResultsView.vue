@@ -64,6 +64,7 @@ const sumOfBillAmounts: number[] = responses.map((bill: any) => {
     return acc + hours
   }, 0)
 
+  console.log("SUM LOG", sum);
   return sum
 })
 
