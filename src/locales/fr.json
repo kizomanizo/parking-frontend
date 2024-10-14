@@ -1,0 +1,43 @@
+{
+  "app": {
+    "topHeading": "Vérifier les Frais de Stationnement",
+    "checkToggle": "Accueil",
+    "historyToggle": "Historique"
+  },
+  "home": {
+    "example": "par exemple T101AAX",
+    "actionButton": "Vérifier les Frais",
+    "instructions": "Saisissez votre numéro de plaque d'immatriculation et appuyez sur 'Vérifier les Frais'."
+  },
+  "footer": {
+    "poweredBy": "Alimenté par",
+    "toggleLanguage": "Changer de Langue"
+  },
+  "prompt": {
+    "question": "Êtes-vous sûr de vouloir supprimer tout l'historique ?",
+    "yes": "OUI",
+    "no": "NON"
+  },
+  "results": {
+    "heading": "Frais de Stationnement",
+    "controlNumber": "Numéro de Contrôle",
+    "amount": "Montant",
+    "hours": "Heures",
+    "tickets": "Tickets",
+    "bill": "Facture : ",
+    "billControlNumber": "Numéro de Contrôle de Facture : ",
+    "billTotalAmount": "Montant Total de la Facture : ",
+    "billTotalHours": "Total des Heures de la Facture : ",
+    "date": "Date",
+    "location": "Emplacement",
+    "paid": "Payé"
+  },
+  "history": {
+    "heading": "Demandes Précédentes",
+    "checkAgain": "Vérifier à nouveau",
+    "clearHistory": "Effacer Tout l'Historique",
+    "showMore": "Afficher Plus...",
+    "showLess": "Afficher Moins",
+    "noHistory": "Aucun historique de recherche passé enregistré"
+  }
+}

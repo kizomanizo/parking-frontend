@@ -1,6 +1,6 @@
 {
   "name": "termis-detailer",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -15,6 +15,7 @@
   "dependencies": {
     "axios": "^1.6.7",
     "vue": "^3.3.11",
+    "vue-i18n": "^10.0.4",
     "vue-router": "^4.2.5"
   },
   "devDependencies": {

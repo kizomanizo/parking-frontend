@@ -1,17 +1,20 @@
 <template>
   <div class="prompt-cover">
     <div class="prompt">
-      <p class="prompt-text">Are you sure you want to clear search history?</p>
+      <p class="prompt-text">{{ t('prompt.question') }}</p>
       <div class="prompt-response">
-        <div class="response-yes" @click="useHistory.clearHistory()">YES</div>
-        <div class="response-no" @click="usePrompt.changeVisibility(false)">NO</div>
+        <div class="response-yes" @click="useHistory.clearHistory()">{{ t('prompt.yes') }}</div>
+        <div class="response-no" @click="usePrompt.changeVisibility(false)">{{ t('prompt.no') }}</div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { useHistory, usePrompt } from '@/stores/store'
+import { useHistory, usePrompt } from '@/stores/store';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 </script>
 
 <style>

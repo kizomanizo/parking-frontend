@@ -1,12 +1,12 @@
 <template>
   <section>
-    <h3 class="prompt-text">Previous Transactions</h3>
+    <h3 class="prompt-text">{{ t('history.heading') }}</h3>
   </section>
   <section class="text-history" v-if="!isHistoryFull">
     <div class="history" v-for="(hist, index) of reversedHistory" :key="index">
       <div class="history-number">{{ hist }}</div>
       <div class="history-action">
-        <a class="action-details" @click="handleCheckParking(hist)">CheckAgain</a>
+        <a class="action-details" @click="handleCheckParking(hist)">{{ t('history.checkAgain') }}</a>
       </div>
     </div>
   </section>
@@ -14,18 +14,19 @@
     <div class="history" v-for="(hist, index) of reversedFullHistory" :key="index">
       <div class="history-number">{{ hist }}</div>
       <div class="history-action">
-        <a class="action-details" @click="handleCheckParking(hist)">CheckAgain</a>
+        <a class="action-details" @click="handleCheckParking(hist)">{{ t('history.checkAgain') }}</a>
       </div>
     </div>
   </section>
   <section class="more-actions" v-if="useHistory.history.length > 0">
-    <a class="clear-history" @click="usePrompt.changeVisibility(true)">Clear History</a>
-    <a class="show-more" v-if="history.length > 5 && useHistory.isFull == false" @click="useHistory.changeSize(true)">Show
-      More...</a>
-    <a class="show-more" v-else-if="useHistory.isFull == true" @click="useHistory.changeSize(false)">Show Less</a>
+    <a class="clear-history" @click="usePrompt.changeVisibility(true)">{{ t('history.clearHistory') }}</a>
+    <a class="show-more" v-if="history.length > 5 && useHistory.isFull == false" @click="useHistory.changeSize(true)">{{
+      t('history.showMore') }}</a>
+    <a class="show-more" v-else-if="useHistory.isFull == true" @click="useHistory.changeSize(false)">{{
+      t('history.showLess') }}</a>
   </section>
   <section class="more-actions" v-else>
-    <p>No past search history</p>
+    <p>{{ t('history.noHistory') }}</p>
   </section>
 </template>
 
@@ -33,6 +34,7 @@
 import { computed } from 'vue';
 import { useHistory, usePath, usePrompt } from '@/stores/store'
 import { handleCheckParking } from '@/scripts/checkParking'
+import { useI18n } from 'vue-i18n';
 
 const history = useHistory.history
 const uniqueHistory = history.length > 0 ? getUniqueOnly(history) : [];
@@ -40,6 +42,8 @@ const reversedHistory = uniqueHistory.reverse().slice(0, 5)
 const reversedFullHistory = uniqueHistory.reverse()
 
 const isHistoryFull = computed(() => useHistory.isFull);
+
+const { t } = useI18n();
 
 usePath.changeName('history')
 

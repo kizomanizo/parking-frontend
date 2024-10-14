@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { computed } from 'vue'
 import { RouterLink, RouterView } from 'vue-router'
+import { useI18n } from 'vue-i18n';
 
 import { useAlert, useLoading, usePath, usePrompt } from './stores/store'
 import FooterComponent from './components/FooterComponent.vue'
@@ -9,6 +10,7 @@ import LoadingBox from './components/LoadingBox.vue'
 import PromptCover from './components/PromptCover.vue'
 
 const selectedPath = computed(() => usePath.name)
+const { t } = useI18n();
 </script>
 
 <template>
@@ -17,17 +19,18 @@ const selectedPath = computed(() => usePath.name)
   <LoadingBox v-if="useLoading.visible" />
   <div class="page-wrapper">
     <header class="page-header">
-      <h1 class="header-heading">Check Parking Fees</h1>
+      <!-- <h1 class="header-heading">Check Parking Fees</h1> -->
+      <h1 class="header-heading">{{ t('app.topHeading') }}</h1>
       <nav class="header-nav">
         <RouterLink to="/" class="top-link-left" :class="{
           'selected-left': selectedPath === 'home',
           'unselected-left': selectedPath === 'history'
-        }" @click="usePath.changeName('home')">Check Fees</RouterLink>
+        }" @click="usePath.changeName('home')">{{ t('app.checkToggle') }}</RouterLink>
         <RouterLink to="/history" class="top-link-right" :class="{
           'selected-right': selectedPath === 'history',
           'unselected-right': selectedPath === 'home'
         }">
-          History
+          {{ t('app.historyToggle') }}
         </RouterLink>
       </nav>
     </header>

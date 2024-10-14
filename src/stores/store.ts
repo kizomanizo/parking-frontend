@@ -1,7 +1,7 @@
 import { reactive, ref } from 'vue'
 import router from '@/router'
-
 import showAlert from '@/scripts/showAlert'
+import { changeLocale } from '@/main'
 
 export const useAlert = reactive({
   visible: false,
@@ -83,3 +83,12 @@ export const usePrompt = {
     this.isVisible.value = visibility
   }
 }
+
+export const useLocale = reactive({
+  language: ref(localStorage.getItem('locale') || 'en'),
+
+  changeLanguage(selectedLanguage: any) {
+    this.language = selectedLanguage
+    changeLocale(selectedLanguage)
+  }
+})

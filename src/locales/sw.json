@@ -1,0 +1,43 @@
+{
+  "app": {
+    "topHeading": "Angalia Ada Za Maegesho",
+    "checkToggle": "Mwanzo",
+    "historyToggle": "Historia"
+  },
+  "home": {
+    "example": "mf. T101AAX",
+    "actionButton": "Tazama Ada",
+    "instructions": "Ingiza namba za gari kisha bofya 'Tazama Ada'."
+  },
+  "footer": {
+    "poweredBy": "Inategemea",
+    "toggleLanguage": "Badili Lugha"
+  },
+  "prompt": {
+    "question": "Una uhakika unataka kufuta kila kumbukumbu?",
+    "yes": "NDIO",
+    "no": "HAPANA"
+  },
+  "results": {
+    "heading": " Ada za Maegesho",
+    "controlNumber": "# ya Malipo",
+    "amount": "Kiasi",
+    "hours": "Masaa",
+    "tickets": "Tiketi",
+    "bill": "Ankara: ",
+    "billControlNumber": "Nambari ya malipo ya ankara: ",
+    "billTotalAmount": "Jumla ya madai: ",
+    "billTotalHours": "Jumla ya masaa: ",
+    "date": "Tarehe",
+    "location": "Eneo",
+    "paid": "Imeshalipwa"
+  },
+  "history": {
+    "heading": "Miamala ya Zamani",
+    "checkAgain": "ChekiTena",
+    "clearHistory": "Futa Kumbukumbu Zote",
+    "showMore": "Onesha Zaidi...",
+    "showLess": "Onesha Chache Tu",
+    "noHistory": "Hakuna kumbukumbu za zamani za utafutaji."
+  }
+}

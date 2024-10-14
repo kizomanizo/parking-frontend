@@ -1,43 +1,43 @@
 <template>
   <section>
-    <h3 class="prompt-text">{{ payerName }} Parking Bills</h3>
+    <h3 class="prompt-text">{{ payerName }} {{ t('results.heading') }}</h3>
   </section>
 
   <section class="bill-wrapper bill-header">
-    <div class="bill-item">Control #</div>
-    <div class="bill-item">Amount</div>
-    <div class="bill-item">Hours</div>
-    <div class="bill-item">Tickets</div>
+    <div class="bill-item">{{ t('results.controlNumber') }}</div>
+    <div class="bill-item">{{ t('results.amount') }}</div>
+    <div class="bill-item">{{ t('results.hours') }}</div>
+    <div class="bill-item">{{ t('results.tickets') }}</div>
   </section>
 
   <section class="text-entry" v-for="(response, index) in responses" :key="index">
-    <span class="bill-number">Bill: {{ index + 1 }}</span>
+    <span class="bill-number">{{ t('results.bill') }}{{ index + 1 }}</span>
     <div class="bill-wrapper bill-entries">
       <div class="bill-item">
-        <span class="bill-label">Bill Control Number: </span>
+        <span class="bill-label">{{ t('results.billControlNumber') }}</span>
         <span class="control-number">{{ response.billControlNumber }}</span>
       </div>
       <div class="bill-item">
-        <!-- <span class="bill-label">Bill Total Amount: </span>{{ formatNumberWithCommas(response.billedAmount) }} Shs -->
-        <span class="bill-label">Bill Total Amount: </span>{{ formatNumberWithCommas(response.outStandingAmount) }} Shs
+        <span class="bill-label">{{ t('results.billTotalAmount') }}</span>
+        {{ formatNumberWithCommas(Number(response.outStandingAmount)) }} Shs
       </div>
       <div class="bill-item">
-        <span class="bill-label">Bill Total Hours: </span>{{ sumOfBillAmounts[index] }}hrs
+        <span class="bill-label">{{ t('results.billTotalHours') }}</span>{{ sumOfBillAmounts[index] }}hrs
       </div>
       <div class="bill-tickets">
         <div class="ticket ticket-heading">
-          <div class="ticket-item ticket-header">Date</div>
-          <div class="ticket-item ticket-header">Amount</div>
-          <div class="ticket-item ticket-header">Hours</div>
-          <div class="ticket-item ticket-header">Location</div>
+          <div class="ticket-item ticket-header">{{ t('results.date') }}</div>
+          <div class="ticket-item ticket-header">{{ t('results.amount') }}</div>
+          <div class="ticket-item ticket-header">{{ t('results.hours') }}</div>
+          <div class="ticket-item ticket-header">{{ t('results.location') }}</div>
         </div>
         <div class="ticket" v-for="(ticketItem, index) in response.ticketItems" :key="index">
           <div class="ticket-item">{{ ticketItem.dateScanned }}</div>
           <div class="ticket-item" v-if="Number(ticketItem.billItemAmount) <= 0">
-            PAID
+            {{ t('results.paid') }}
           </div>
           <div class="ticket-item" v-else>
-            {{ formatNumberWithCommas(Number(ticketItem.billItemAmount).toFixed(0)) }} Shs
+            {{ formatNumberWithCommas(Number(ticketItem.billItemAmount)) }} Shs
           </div>
           <div class="ticket-item">{{ ticketItem.billItemDescription }}</div>
           <div class="ticket-item item-details">
@@ -47,7 +47,6 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </section>
@@ -55,27 +54,31 @@
 
 <script setup lang="ts">
 import { useResponse } from '@/stores/store'
+import { useI18n } from 'vue-i18n';
 
+// Parse responses as an array
 const responses = JSON.parse(useResponse.responses)
-const payerName = responses[0].payerName
-// Iterate through each bill
+const payerName = responses[0]?.payerName || 'Unknown'
+
+// Calculate the sum of hours for each bill
 const sumOfBillAmounts: number[] = responses.map((bill: any) => {
-  // Iterate through ticket items of each bill and sum billItemAmount
-  const sum = bill.ticketItems.reduce((acc: any, ticketItem: any) => {
-    // Extract hours from billItemDescription
+  return bill.ticketItems.reduce((acc: number, ticketItem: any) => {
     const hoursMatch = ticketItem.billItemDescription.match(/\d+/)
     const hours = hoursMatch ? parseInt(hoursMatch[0], 10) : 0
-
     return acc + hours
   }, 0)
+});
+const { t } = useI18n();
 
-  return sum
-})
-
-function formatNumberWithCommas(number: number) {
-  return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+// Format a number with commas
+function formatNumberWithCommas(number: number): string {
+  if (isNaN(number)) {
+    return '0'
+  }
+  return number.toLocaleString()
 }
 </script>
+
 
 <style>
 section {

@@ -1,0 +1,43 @@
+{
+  "app": {
+    "topHeading": "Check Parking Fees",
+    "checkToggle": "Home",
+    "historyToggle": "History"
+  },
+  "home": {
+    "example": "e.g. T101AAX",
+    "actionButton": "Check Fees",
+    "instructions": "Enter your license plate number and press 'Check Fees'."
+  },
+  "footer": {
+    "poweredBy": "Powered By",
+    "toggleLanguage": "Change Language"
+  },
+  "prompt": {
+    "question": "Are you sure you want to delete all history?",
+    "yes": "YES",
+    "no": "NO"
+  },
+  "results": {
+    "heading": " Parking Fees",
+    "controlNumber": "Control #",
+    "amount": "Amount",
+    "hours": "Hours",
+    "tickets": "Tickets",
+    "bill": "Bill: ",
+    "billControlNumber": "Bill Control Number: ",
+    "billTotalAmount": "Bill Total Amount: ",
+    "billTotalHours": "Bill Total Hours: ",
+    "date": "Date",
+    "location": "Location",
+    "paid": "Paid"
+  },
+  "history": {
+    "heading": "Previous Requests",
+    "checkAgain": "CheckAgain",
+    "clearHistory": "Clear All History",
+    "showMore": "Show More...",
+    "showLess": "Show Less",
+    "noHistory": "No past search history in record"
+  }
+}

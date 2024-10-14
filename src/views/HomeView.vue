@@ -1,19 +1,21 @@
 <template>
   <section class="search-form">
-    <input type="text" name="reg_number" id="reg_number" placeholder="e.g. T011AAX" class="form-text"
+    <input type="text" name="reg_number" id="reg_number" placeholder="t('home.example')" class="form-text"
       v-model="regNumber" />
-    <input type="button" class="form-button" value="Check Fees" @click="handleCheckParking(regNumber)"
+    <input type="button" class="form-button" value="t('home.actionButton')" @click="handleCheckParking(regNumber)"
       @keydown.enter="handleCheckParking" />
   </section>
   <section>
-    <p class="prompt-text">Enter your plate number and press Check Fees</p>
+    <p class="prompt-text">{{ t('home.instructions') }}</p>
   </section>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n';
 import { handleCheckParking } from '@/scripts/checkParking'
 
+const { t } = useI18n();
 const regNumber = ref('')
 </script>
 

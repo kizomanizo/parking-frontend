@@ -1,8 +1,20 @@
 <template>
   <footer class="page-footer">
-    <p class="footer-text">Powered by <a href="" class="footer-link">TERMIS</a></p>
+    <p class="footer-text">
+      {{ t('footer.poweredBy') }} <a href="" class="footer-link">TERMIS | </a> {{ t('footer.toggleLanguage') }}
+      <a @click.prevent="useLocale.changeLanguage('en')">English🇬🇧🇬 </a> |
+      <a @click.prevent="useLocale.changeLanguage('sw')">Kiswahili🇹🇿🇹</a> |
+      <a @click.prevent="useLocale.changeLanguage('fr')">Francais🇫🇷🇫</a>
+    </p>
   </footer>
 </template>
+
+<script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+import { useLocale } from '@/stores/store';
+
+const { t } = useI18n();
+</script>
 
 <style scoped>
 footer {
