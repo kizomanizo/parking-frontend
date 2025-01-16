@@ -27,30 +27,39 @@
 /* Light Theme */
 :root {
   --background-norm: var(--color-white-norm);
-  --background-hover: var(--color-white-mute);
+  --background-hover: var(--color-white-cool);
 
   --border-norm: var(--color-grey-mute);
   --border-hover: var(--color-grey-norm);
 
-  --button-norm: var(--color-silver-norm);
+  --button-norm: var(--color-white-mute);
   --button-hover: var(--color-jet-norm);
+  --button-unselected: var(--color-jet-norm);
+  --button-text: var(--color-jet-norm);
+  --button-text-hover: var(--color-white-mute);
 
   --text-norm-norm: var(--color-jet-norm);
   --text-light-norm: var(--color-white-norm);
   --text-head-norm: var(--color-jet-cool);
-  --text-haed-mute: var(--color-jet-mute);
+  --text-head-mute: var(--color-jet-mute);
   --text-link-norm: var(--color-silver-cool);
   --text-link-hover: var(--color-jet-mute);
 }
 
 /* Dark Theme */
-@media (prefers-color-scheme: auto) {
+@media (prefers-color-scheme: dark) {
   :root {
     --background-norm: var(--color-jet-mute);
     --background-hover: var(--color-jet-cool);
 
     --border-norm: var(--color-grey-mute);
-    --button-hover: var(--color-grey-norm);
+    --border-hover: var(--color-grey-norm);
+
+    --button-norm: var(--color-jet-norm);
+    --button-hover: var(--color-silver-norm);
+    --button-unselected: var(--color-silver-norm);
+    --button-text: var(--color-silver-norm);
+    --button-text-hover: var(--color-jet-norm);
 
     --text-norm-norm: var(--color-grey-norm);
     --text-head-norm: var(--color-grey-cool);
@@ -81,7 +90,7 @@ body {
 a {
   color: var(--text-link-norm);
   text-decoration: none;
-  transition: 0.5s;
+  transition: 0.6s;
   cursor: pointer;
 }
 

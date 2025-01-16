@@ -155,7 +155,8 @@ section {
 }
 
 .control-number {
-  background-color: var(--color-white-mute);
+  background-color: var(--background-hover);
+  color: var(--text-norm-norm);
   padding: 2px 6px;
   border-radius: 15px;
   font-size: smaller;

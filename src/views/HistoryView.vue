@@ -76,16 +76,16 @@ function getUniqueOnly(arr: any) {
 }
 
 .action-details {
-  background-color: var(--color-jet-mute);
-  color: var(--color-white-mute);
+  background-color: var(--button-norm);
+  color: var(--button-text);
   font-size: smaller;
   border-radius: 10px;
   padding: 2px 6px;
 }
 
 .action-details:hover {
-  background-color: var(--color-jet-norm);
-  color: var(--color-white-norm);
+  background-color: var(--button-hover);
+  color: var(--button-text-hover);
 }
 
 .more-actions {

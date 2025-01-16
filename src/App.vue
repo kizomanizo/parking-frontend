@@ -19,16 +19,15 @@ const { t } = useI18n();
   <LoadingBox v-if="useLoading.visible" />
   <div class="page-wrapper">
     <header class="page-header">
-      <!-- <h1 class="header-heading">Check Parking Fees</h1> -->
       <h1 class="header-heading">{{ t('app.topHeading') }}</h1>
       <nav class="header-nav">
-        <RouterLink to="/" class="top-link-left" :class="{
-          'selected-left': selectedPath === 'home',
-          'unselected-left': selectedPath === 'history'
+        <RouterLink to="/" class="top-link left-border" :class="{
+          'selected': selectedPath === 'home',
+          'unselected': selectedPath === 'history'
         }" @click="usePath.changeName('home')">{{ t('app.checkToggle') }}</RouterLink>
-        <RouterLink to="/history" class="top-link-right" :class="{
-          'selected-right': selectedPath === 'history',
-          'unselected-right': selectedPath === 'home'
+        <RouterLink to="/history" class="top-link right-border" :class="{
+          'selected': selectedPath === 'history',
+          'unselected': selectedPath === 'home'
         }">
           {{ t('app.historyToggle') }}
         </RouterLink>
@@ -68,51 +67,38 @@ nav {
   align-items: center;
   justify-content: center;
   border-radius: 10px;
-  box-shadow: 2px 2px 5px var(--color-jet-cool);
+  box-shadow: 2px 2px 5px var(--button-text);
 }
 
-.top-link-left {
-  background-color: var(--color-silver-norm);
-  color: var(--color-white-norm);
+.top-link {
+  background-color: var(--button-norm);
+  color: var(--button-text);
   padding: 4px 7px;
+  width: 120px;
+}
+
+.top-link:hover {
+  background-color: var(--button-hover);
+  color: var(--button-text-hover);
+}
+
+.left-border {
   border-radius: 10px 0 0 10px;
-  width: 120px;
 }
 
-.top-link-left:hover {
-  background-color: var(--color-jet-norm);
-}
-
-.top-link-right {
-  background-color: var(--color-silver-norm);
-  color: var(--color-white-norm);
-  padding: 4px 7px;
+.right-border {
   border-radius: 0 10px 10px 0;
-  width: 120px;
 }
 
-.top-link-right:hover {
-  background-color: var(--color-jet-norm);
-}
-
-.unselected-left {
-  box-shadow: 1px 1px 5px var(--color-jet-norm);
+.unselected {
+  box-shadow: -1px 1px 5px var(--button-norm);
+  color: var(--button-text);
   z-index: 3;
 }
 
-.unselected-right {
-  box-shadow: -1px 1px 5px var(--color-jet-norm);
-  z-index: 3;
-}
-
-.selected-left {
-  background-color: var(--color-jet-norm);
-  color: var(--color-white-cool);
-}
-
-.selected-right {
-  background-color: var(--color-jet-norm);
-  color: var(--color-white-cool);
+.selected {
+  background-color: var(--button-hover);
+  color: var(--button-text-hover);
 }
 
 main {
@@ -123,7 +109,7 @@ main {
   justify-content: center;
   flex: 1;
   padding: 0 10px;
-  margin-top: 20px;
+  margin: 20px 5px;
 }
 
 .section-gap {

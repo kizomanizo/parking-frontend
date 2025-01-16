@@ -37,10 +37,11 @@ const regNumber = ref('')
 }
 
 .form-text {
+  background: var(--color-white-cool);
   text-align: center;
-  font-weight: bold;
+  font-weight: normal;
   font-size: 1.6rem;
-  border-radius: 10px;
+  border-radius: 5px;
   border: 1px solid var(--border-norm);
 }
 
@@ -56,6 +57,7 @@ const regNumber = ref('')
   max-width: 200px;
   color: var(--text-norm-norm);
   cursor: pointer;
+  transition: 600ms;
 }
 
 .form-button:hover {
