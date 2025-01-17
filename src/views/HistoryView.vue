@@ -75,6 +75,11 @@ function getUniqueOnly(arr: any) {
   min-width: 60%;
 }
 
+.history-number {
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
 .action-details {
   background-color: var(--button-norm);
   color: var(--button-text);
