@@ -43,10 +43,15 @@ const regNumber = ref('')
   font-size: 1.6rem;
   border-radius: 5px;
   border: 1px solid var(--border-norm);
+  text-transform: uppercase;
 }
 
 .form-text:hover {
   border: 1px solid var(--border-hover);
+}
+
+.form-text::placeholder {
+  text-transform: none;
 }
 
 .form-button {
