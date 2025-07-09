@@ -19,10 +19,11 @@
       </div>
       <div class="bill-item">
         <span class="bill-label">{{ t('results.billTotalAmount') }}</span>
-        {{ formatNumberWithCommas(Number(response.outStandingAmount)) }} Shs
+        {{ formatNumberWithCommas(Number(response.outStandingAmount) + Number(sumOfTausiAmounts)) }} Shs
       </div>
       <div class="bill-item">
-        <span class="bill-label">{{ t('results.billTotalHours') }}</span>{{ sumOfBillAmounts[index] }}hrs
+        <span class="bill-label">{{ t('results.billTotalHours') }}</span>{{ sumOfBillAmounts[index] +
+          Number(tausis.length) }}hrs
       </div>
       <div class="bill-tickets">
         <div class="ticket ticket-heading">
@@ -47,17 +48,36 @@
             </div>
           </div>
         </div>
+        <div class="ticket" v-for="(tausiItem, tausiIndex) in tausis" :key="`tausi-${tausiIndex}`">
+          <div class="ticket-item">{{ tausiItem.parkingDetail.scanDate }}</div>
+          <div class="ticket-item" v-if="Number(tausiItem.payableAmount) <= 0">
+            {{ t('results.paid') }}
+          </div>
+          <div class="ticket-item" v-else>
+            {{ formatNumberWithCommas(Number(tausiItem.payableAmount)) }} Shs
+          </div>
+          <div class="ticket-item">{{ '1 ' + (tausiItem.parkingDetail.paymentPlan.charAt(0).toUpperCase() +
+            tausiItem.parkingDetail.paymentPlan.toLowerCase().slice(1)) }}</div>
+          <div class="ticket-item detail-line2">{{
+            locationNames.get(`${tausiItem.parkingDetail.coordinatePoint.x},${tausiItem.parkingDetail.coordinatePoint.y}`)
+            || 'Loading...' }}
+          </div>
+        </div>
       </div>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 import { useResponse } from '@/stores/store'
 import { useI18n } from 'vue-i18n';
+import { locationNamer } from '@/scripts/locationNamer'
 
-// Parse responses as an array
+// Parse responses as an array (keep original working logic)
 const responses = JSON.parse(useResponse.responses)
+// Parse tausi from separate localStorage entry - ensure it's always an array
+const tausis = useResponse.tausi && useResponse.tausi !== 'null' ? JSON.parse(useResponse.tausi) : []
 const payerName = responses[0]?.payerName || 'Unknown'
 
 // Calculate the sum of hours for each bill
@@ -68,7 +88,13 @@ const sumOfBillAmounts: number[] = responses.map((bill: any) => {
     return acc + hours
   }, 0)
 });
+
+// Calculate the sum of tausi payable amounts
+const sumOfTausiAmounts: number = Array.isArray(tausis) ? tausis.reduce((acc: number, tausiItem: any) => {
+  return acc + Number(tausiItem.payableAmount) || 0
+}, 0) : 0;
 const { t } = useI18n();
+
 
 // Format a number with commas
 function formatNumberWithCommas(number: number): string {
@@ -77,6 +103,32 @@ function formatNumberWithCommas(number: number): string {
   }
   return number.toLocaleString()
 }
+
+// Create a reactive map to store location names
+const locationNames = ref(new Map())
+
+// Load location names for tausi items
+const loadLocationNames = async () => {
+  // Ensure tausis is an array before iterating
+  if (!Array.isArray(tausis)) {
+    return
+  }
+
+  for (const tausiItem of tausis) {
+    const lat = tausiItem.parkingDetail.coordinatePoint.x
+    const long = tausiItem.parkingDetail.coordinatePoint.y
+    const key = `${lat},${long}`
+
+    if (!locationNames.value.has(key)) {
+      const name = await locationNamer(lat, long)
+      locationNames.value.set(key, name)
+    }
+  }
+}
+
+// Load location names when component mounts
+loadLocationNames()
+
 </script>
 
 
@@ -113,7 +165,6 @@ section {
 }
 
 .bill-entries {
-  /* border-top: 1px dashed var(--border-hover); */
   box-shadow: 5px 5px 4px var(--border-hover);
 }
 
@@ -152,6 +203,10 @@ section {
 
 .detail-line {
   border-bottom: 1px dashed var(--border-hover);
+}
+
+.detail-line2 {
+  border-bottom: 1px dashed lightskyblue;
 }
 
 .control-number {

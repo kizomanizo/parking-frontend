@@ -63,6 +63,7 @@ export const handleCheckParking = async (regNumber: any) => {
       // Add the sanitized REG to the history
       useHistory.setHistory(sanitizedRegNumber)
       useResponse.setResponse(JSON.stringify(response.data))
+      useResponse.setTausi(JSON.stringify(response.tausi))
       usePath.changeName('results')
       await router.push('/results')
     } else {

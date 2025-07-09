@@ -54,6 +54,7 @@
 
     --border-norm: var(--color-grey-mute);
     --border-hover: var(--color-grey-norm);
+    --border-hover2: var(--color-green-light);
 
     --button-norm: var(--color-jet-norm);
     --button-hover: var(--color-silver-norm);

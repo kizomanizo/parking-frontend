@@ -39,11 +39,17 @@ export const usePath = reactive({
 })
 
 export const useResponse = reactive({
-  responses: ref(localStorage.getItem('responses') || ''),
+  responses: ref(localStorage.getItem('responses') ?? ''),
+  tausi: ref(localStorage.getItem('tausi') ?? ''),
 
   setResponse(newResponse: any) {
     this.responses = newResponse
     localStorage.setItem('responses', newResponse)
+  },
+
+  setTausi(newTausi: any) {
+    this.tausi = newTausi
+    localStorage.setItem('tausi', newTausi)
   },
 
   removeResponse() {
