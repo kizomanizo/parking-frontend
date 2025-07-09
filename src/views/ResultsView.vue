@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="ticket" v-for="(tausiItem, tausiIndex) in tausis" :key="`tausi-${tausiIndex}`">
-          <div class="ticket-item">{{ tausiItem.parkingDetail.scanDate }}</div>
+          <div class="ticket-item">{{ formatDateTime(tausiItem.parkingDetail.startTime).date }}</div>
           <div class="ticket-item" v-if="Number(tausiItem.payableAmount) <= 0">
             {{ t('results.paid') }}
           </div>
@@ -58,7 +58,8 @@
           </div>
           <div class="ticket-item">{{ '1 ' + (tausiItem.parkingDetail.paymentPlan.charAt(0).toUpperCase() +
             tausiItem.parkingDetail.paymentPlan.toLowerCase().slice(1)) }}</div>
-          <div class="ticket-item detail-line2">{{
+          <div class="ticket-item detail-line2">{{ formatDateTime(tausiItem.parkingDetail.startTime).time + " - "
+            +
             locationNames.get(`${tausiItem.parkingDetail.coordinatePoint.x},${tausiItem.parkingDetail.coordinatePoint.y}`)
             || 'Loading...' }}
           </div>
@@ -102,6 +103,51 @@ function formatNumberWithCommas(number: number): string {
     return '0'
   }
   return number.toLocaleString()
+}
+
+// Format date and time from startTime string
+function formatDateTime(startTime: string) {
+  // Handle null, undefined, or empty string
+  if (!startTime || typeof startTime !== 'string') {
+    return { time: 'N/A', date: 'N/A' }
+  }
+
+  try {
+    const date = new Date(startTime)
+
+    // Check if date is valid
+    if (isNaN(date.getTime())) {
+      // If invalid date, try to parse the string manually
+      const parts = startTime.split(' ')
+      if (parts.length === 2) {
+        const datePart = parts[0]
+        const timePart = parts[1]
+        return { time: timePart, date: datePart }
+      }
+      return { time: 'Invalid', date: 'Invalid' }
+    }
+
+    // Format time as HH:MM
+    const time = date.toLocaleTimeString('en-US', {
+      hour12: false,
+      hour: '2-digit',
+      minute: '2-digit'
+    })
+
+    // Format date as YYYY-MM-DD
+    const dateStr = date.toISOString().split('T')[0]
+
+    return { time, date: dateStr }
+  } catch (error) {
+    // Fallback: try to parse manually
+    const parts = startTime.split(' ')
+    if (parts.length === 2) {
+      const datePart = parts[0]
+      const timePart = parts[1]
+      return { time: timePart, date: datePart }
+    }
+    return { time: 'Error', date: 'Error' }
+  }
 }
 
 // Create a reactive map to store location names
