@@ -22,7 +22,8 @@ export const locationNamer = async (lat: number, lng: number): Promise<string> =
   try {
     // const apiUrl = import.meta.env.VITE_GEOLOCATION_API
     const apiUrl = import.meta.env.VITE_OPENCAGEDATA_API
-    const apiKey = import.meta.env.VITE_GEO_KEY
+    // const apiKey = import.meta.env.VITE_GEO_KEY
+    const apiKey = import.meta.env.VITE_OPENCAGEDATA_API_KEY
 
     if (!apiUrl || !apiKey) {
       console.error('Missing geolocation API configuration')
