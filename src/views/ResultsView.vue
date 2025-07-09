@@ -10,6 +10,7 @@
     <div class="bill-item">{{ t('results.tickets') }}</div>
   </section>
 
+  <!-- Regular responses section -->
   <section class="text-entry" v-for="(response, index) in responses" :key="index">
     <span class="bill-number">{{ t('results.bill') }}{{ index + 1 }}</span>
     <div class="bill-wrapper bill-entries">
@@ -67,6 +68,48 @@
       </div>
     </div>
   </section>
+
+  <!-- Tausi-only section (when no regular responses) -->
+  <section class="text-entry" v-if="responses.length === 0 && tausis.length > 0">
+    <span class="bill-number">{{ t('results.bill') }}1</span>
+    <div class="bill-wrapper bill-entries">
+      <div class="bill-item">
+        <span class="bill-label">{{ t('results.billControlNumber') }}</span>
+        <span class="control-number">TAUSI</span>
+      </div>
+      <div class="bill-item">
+        <span class="bill-label">{{ t('results.billTotalAmount') }}</span>
+        {{ formatNumberWithCommas(Number(sumOfTausiAmounts)) }} Shs
+      </div>
+      <div class="bill-item">
+        <span class="bill-label">{{ t('results.billTotalHours') }}</span>{{ tausis.length }}hrs
+      </div>
+      <div class="bill-tickets">
+        <div class="ticket ticket-heading">
+          <div class="ticket-item ticket-header">{{ t('results.date') }}</div>
+          <div class="ticket-item ticket-header">{{ t('results.amount') }}</div>
+          <div class="ticket-item ticket-header">{{ t('results.hours') }}</div>
+          <div class="ticket-item ticket-header">{{ t('results.location') }}</div>
+        </div>
+        <div class="ticket" v-for="(tausiItem, tausiIndex) in tausis" :key="`tausi-only-${tausiIndex}`">
+          <div class="ticket-item">{{ formatDateTime(tausiItem.parkingDetail.startTime).date }}</div>
+          <div class="ticket-item" v-if="Number(tausiItem.payableAmount) <= 0">
+            {{ t('results.paid') }}
+          </div>
+          <div class="ticket-item" v-else>
+            {{ formatNumberWithCommas(Number(tausiItem.payableAmount)) }} Shs
+          </div>
+          <div class="ticket-item">{{ '1 ' + (tausiItem.parkingDetail.paymentPlan.charAt(0).toUpperCase() +
+            tausiItem.parkingDetail.paymentPlan.toLowerCase().slice(1)) }}</div>
+          <div class="ticket-item detail-line2">{{ formatDateTime(tausiItem.parkingDetail.startTime).time + " - "
+            +
+            locationNames.get(`${tausiItem.parkingDetail.coordinatePoint.x},${tausiItem.parkingDetail.coordinatePoint.y}`)
+            || 'Loading...' }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">
@@ -76,10 +119,11 @@ import { useI18n } from 'vue-i18n';
 import { locationNamer } from '@/scripts/locationNamer'
 
 // Parse responses as an array (keep original working logic)
-const responses = JSON.parse(useResponse.responses)
+const responses = useResponse.responses && useResponse.responses !== 'null' ? JSON.parse(useResponse.responses) : []
 // Parse tausi from separate localStorage entry - ensure it's always an array
 const tausis = useResponse.tausi && useResponse.tausi !== 'null' ? JSON.parse(useResponse.tausi) : []
-const payerName = responses[0]?.payerName || 'Unknown'
+// Get payer name from responses or use plate number from tausi if no responses
+const payerName = responses[0]?.payerName || tausis[0]?.plateNumber || 'Unknown'
 
 // Calculate the sum of hours for each bill
 const sumOfBillAmounts: number[] = responses.map((bill: any) => {
@@ -174,6 +218,13 @@ const loadLocationNames = async () => {
 
 // Load location names when component mounts
 loadLocationNames()
+
+// Debug: Log the data to see what we're working with
+console.log('useResponse.responses:', useResponse.responses)
+console.log('useResponse.tausi:', useResponse.tausi)
+console.log('Parsed responses:', responses)
+console.log('Parsed tausis:', tausis)
+console.log('Payer name:', payerName)
 
 </script>
 

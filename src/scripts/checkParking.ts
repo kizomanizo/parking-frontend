@@ -46,7 +46,15 @@ export const handleCheckParking = async (regNumber: any) => {
 
     // Check if the input matches the unsanitized format
     if (unsanitizedRegex.test(regNumber)) {
-      sanitizedRegNumber = `T${regNumber}` // Prepend 'T' to sanitize the input
+      // Extract the 3 digits and 3 letters, then ensure letters are uppercase
+      const digits = regNumber.substring(0, 3)
+      const letters = regNumber.substring(3, 6).toUpperCase()
+      sanitizedRegNumber = `T${digits}${letters}` // Prepend 'T' and ensure letters are caps
+    } else if (tzRegex.test(regNumber)) {
+      // If it already has 'T' prefix, just ensure the letters are uppercase
+      const prefix = regNumber.substring(0, 4) // 'T' + 3 digits
+      const letters = regNumber.substring(4, 7).toUpperCase()
+      sanitizedRegNumber = `${prefix}${letters}`
     }
     // Validate the sanitized registration number
     if (tzRegex.test(sanitizedRegNumber)) {
